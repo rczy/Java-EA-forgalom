@@ -2,6 +2,7 @@ package app.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ELADAS")
@@ -36,5 +37,17 @@ public class Eladas implements Serializable {
 
     public void setMennyiseg(int mennyiseg) {
         this.mennyiseg = mennyiseg;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Eladas eladas)) return false;
+        return mennyiseg == eladas.mennyiseg && Objects.equals(aru, eladas.aru);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(aru, mennyiseg);
     }
 }

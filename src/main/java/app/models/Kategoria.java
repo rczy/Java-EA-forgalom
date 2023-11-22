@@ -32,4 +32,12 @@ public class Kategoria {
     public void setKod(int kod) {
         this.kod = kod;
     }
+
+    public String getNev() {
+        return nev;
+    }
+
+    public void setNev(String nev) {
+        this.nev = nev;
+    }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<StackPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.gui.MenuController">
+   <children>
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Adatbázis">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Olvas" onAction="#loadView" userData="crud/read" />
+              <MenuItem mnemonicParsing="false" text="Olvas 2" onAction="#loadView" userData="crud/read-filter" />
+              <MenuItem mnemonicParsing="false" text="Ír" onAction="#loadView" userData="crud/create" />
+              <MenuItem mnemonicParsing="false" text="Módosít" onAction="#loadView" userData="crud/update" />
+              <MenuItem mnemonicParsing="false" text="Töröl" onAction="#loadView" userData="crud/delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="REST">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Create" />
+              <MenuItem mnemonicParsing="false" text="Read" />
+              <MenuItem mnemonicParsing="false" text="Update" />
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="SOAP">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Letöltés" />
+              <MenuItem mnemonicParsing="false" text="Letöltés 2" />
+              <MenuItem mnemonicParsing="false" text="Grafikon" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</StackPane>
