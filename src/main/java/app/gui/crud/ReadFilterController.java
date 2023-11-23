@@ -78,7 +78,6 @@ public class ReadFilterController {
     }
 
     private void initKategoriakComboBox() {
-
         List<Kategoria> kategoriak;
         try (SessionFactory factory = ForgalomApplication.getDbSessionFactory()) {
             Session session = factory.openSession();

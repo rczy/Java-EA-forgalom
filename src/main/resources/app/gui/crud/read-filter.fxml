@@ -29,6 +29,7 @@
                                 <Label text="és" />
                                 <TextField fx:id="maxInput" prefWidth="80.0" promptText="maximum" />
                                 <Label text="között" />
+                                <Separator orientation="VERTICAL" prefHeight="200.0" />
                                 <Button mnemonicParsing="false" onAction="#filterAruk" text="Szűrés" />
                            </children>
                            <padding>
