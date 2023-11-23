@@ -27,6 +27,7 @@ public class ReadController {
     }
 
     private void initTableColumns() {
+        TableColumn<Aru, Integer> kod = new TableColumn<>("Kód");
         TableColumn<Aru, String> kategoria = new TableColumn<>("Kategória");
         TableColumn<Aru, String> megnevezes = new TableColumn<>("Megnevezés");
         TableColumn<Aru, Integer> ar = new TableColumn<>("Ár");
@@ -34,6 +35,9 @@ public class ReadController {
         TableColumn<Aru, String> egyseg = new TableColumn<>("Egység");
         TableColumn<Aru, Integer> osszesen = new TableColumn<>("Összesen");
 
+        kod.setCellValueFactory(cd -> new SimpleIntegerProperty(
+                cd.getValue().getKod()
+        ).asObject());
         kategoria.setCellValueFactory(cd -> new SimpleStringProperty(
                 cd.getValue().getKategoria().getNev()
         ));
@@ -53,6 +57,7 @@ public class ReadController {
                 cd.getValue().getAr() * cd.getValue().getEladas().getMennyiseg()
         ).asObject());
 
+        aruTable.getColumns().add(kod);
         aruTable.getColumns().add(kategoria);
         aruTable.getColumns().add(megnevezes);
         aruTable.getColumns().add(ar);

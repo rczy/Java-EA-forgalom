@@ -2,7 +2,6 @@ package app.gui.crud;
 
 import app.ForgalomApplication;
 import app.models.Aru;
-import app.models.Eladas;
 import app.models.Kategoria;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -18,7 +17,9 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class CreateController {
+public class UpdateController {
+    @FXML
+    private ComboBox<Integer> kodCombo;
     @FXML
     private ComboBox<Kategoria> kategoriaCombo;
     @FXML
@@ -32,21 +33,25 @@ public class CreateController {
 
     @FXML
     private void initialize() {
-        initKategoriakComboBox();
+        initComboBoxes();
     }
 
-    private void initKategoriakComboBox() {
+    private void initComboBoxes() {
+        List<Integer> kodok;
         List<Kategoria> kategoriak;
+
         try (SessionFactory factory = ForgalomApplication.getDbSessionFactory()) {
             Session session = factory.openSession();
             Transaction t = session.beginTransaction();
+            kodok = session.createQuery("SELECT aru.kod FROM Aru aru ").list();
             kategoriak = session.createQuery("FROM Kategoria ").list();
             t.commit();
         }
+        kodCombo.setItems(FXCollections.observableList(kodok));
         kategoriaCombo.setConverter(new StringConverter<>() {
             @Override
             public String toString(Kategoria object) {
-                return object.getNev();
+                return object != null ? object.getNev() : "";
             }
             @Override
             public Kategoria fromString(String string) {
@@ -54,11 +59,28 @@ public class CreateController {
             }
         });
         kategoriaCombo.setItems(FXCollections.observableList(kategoriak));
-        kategoriaCombo.getSelectionModel().selectFirst();
     }
 
     @FXML
-    private void createAru(ActionEvent event) {
+    private void loadAru(ActionEvent event) {
+        int aruKod = kodCombo.getSelectionModel().getSelectedItem();
+        Aru aru;
+        try (SessionFactory factory = ForgalomApplication.getDbSessionFactory()) {
+            Session session = factory.openSession();
+            Transaction t = session.beginTransaction();
+            aru = session.get(Aru.class, aruKod);
+            t.commit();
+        }
+        kategoriaCombo.getSelectionModel().select(aru.getKategoria());
+        megnevezesInput.setText(aru.getNev());
+        egysegInput.setText(aru.getEgyseg());
+        arInput.setText(String.valueOf(aru.getAr()));
+        mennyisegInput.setText(String.valueOf(aru.getEladas().getMennyiseg()));
+    }
+
+    @FXML
+    private void updateAru(ActionEvent event) {
+        int aruKod = kodCombo.getSelectionModel().getSelectedItem();
         Kategoria kategoria = kategoriaCombo.getSelectionModel().getSelectedItem();
         int ar, mennyiseg;
         try {
@@ -74,13 +96,15 @@ public class CreateController {
             Session session = factory.openSession();
             Transaction t = session.beginTransaction();
 
-            Eladas eladas = new Eladas();
-            Aru aru = new Aru(kategoria, megnevezesInput.getText(), egysegInput.getText(), ar, eladas);
-            eladas.setAru(aru);
-            eladas.setMennyiseg(mennyiseg);
-
-            session.save(aru);
-            session.save(eladas);
+            Aru aru = session.get(Aru.class, aruKod);
+            if (aru.getKategoria().getKod() != kategoria.getKod()) {
+                aru.setKategoria(kategoria);
+            }
+            aru.setNev(megnevezesInput.getText());
+            aru.setEgyseg(egysegInput.getText());
+            aru.setAr(ar);
+            aru.getEladas().setMennyiseg(mennyiseg);
+            session.update(aru);
 
             t.commit();
         }
