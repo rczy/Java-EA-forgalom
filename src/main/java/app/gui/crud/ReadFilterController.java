@@ -8,15 +8,15 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReadFilterController {
@@ -25,12 +25,21 @@ public class ReadFilterController {
     @FXML
     private ComboBox<Kategoria> kategoriaCombo;
     @FXML
-    private ComboBox<String> relacioCombo;
+    private TextField megnevezesInput;
+    @FXML
+    private CheckBox pontosCheck;
+    @FXML
+    private RadioButton arRadio;
+    @FXML
+    private TextField minInput;
+    @FXML
+    private TextField maxInput;
 
     @FXML
     private void initialize() {
         initTableColumns();
-        initComboBoxes();
+        initKategoriakComboBox();
+        arRadio.setSelected(true);
     }
 
     private void initTableColumns() {
@@ -68,7 +77,7 @@ public class ReadFilterController {
         aruTable.getColumns().add(osszesen);
     }
 
-    private void initComboBoxes() {
+    private void initKategoriakComboBox() {
 
         List<Kategoria> kategoriak;
         try (SessionFactory factory = ForgalomApplication.getDbSessionFactory()) {
@@ -88,18 +97,49 @@ public class ReadFilterController {
             }
         });
         kategoriaCombo.setItems(FXCollections.observableList(kategoriak));
-        kategoriaCombo.getSelectionModel().selectFirst();
-        List<String> relaciok = new ArrayList<>();
-        relaciok.add("<");
-        relaciok.add(">");
-        relaciok.add("=");
-        relacioCombo.setItems(FXCollections.observableList(relaciok));
-        relacioCombo.getSelectionModel().selectFirst();
+        Kategoria osszesKategoria = new Kategoria("-- összes --", null);
+        osszesKategoria.setKod(0);
+        kategoriaCombo.getItems().add(osszesKategoria);
+        kategoriaCombo.getSelectionModel().selectLast();
     }
 
     @FXML
     private void filterAruk(ActionEvent event) {
-        System.out.println("FILTER");
-        System.out.println(kategoriaCombo.getSelectionModel().getSelectedItem().getKod());
+        int kategoriaKod = kategoriaCombo.getSelectionModel().getSelectedItem().getKod();
+        String megnevezes = megnevezesInput.getText();
+        Boolean pontos = pontosCheck.isSelected();
+
+        int min, max;
+        try {
+            min = Integer.parseInt(minInput.getText());
+        } catch (NumberFormatException e) {
+            min = Integer.MIN_VALUE;
+        }
+        try {
+            max = Integer.parseInt(maxInput.getText());
+        } catch (NumberFormatException e) {
+            max = Integer.MAX_VALUE;
+        }
+
+        List<Aru> aruk;
+        try (SessionFactory factory = ForgalomApplication.getDbSessionFactory()) {
+            Session session = factory.openSession();
+            Transaction t = session.beginTransaction();
+
+            Criteria criteria = session.createCriteria(Aru.class);
+            if (kategoriaKod > 0) {
+                criteria.add(Restrictions.eq("kategoria.kod", kategoriaKod));
+            }
+            if (!megnevezes.isEmpty()) {
+                criteria.add(Restrictions.like("nev", megnevezes, pontos ? MatchMode.EXACT : MatchMode.ANYWHERE));
+            }
+            if (min > Integer.MIN_VALUE || max < Integer.MAX_VALUE) {
+                String propName = arRadio.isSelected() ? "ar" : "eladas.mennyiseg";
+                criteria.createAlias("eladas", "eladas").add(Restrictions.between(propName, min, max));
+            }
+            aruk = criteria.list();
+            t.commit();
+        }
+        aruTable.setItems(FXCollections.observableList(aruk));
     }
 }
