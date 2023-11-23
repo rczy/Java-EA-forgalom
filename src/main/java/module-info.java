@@ -5,6 +5,7 @@ open module com.example.forgalom {
     requires java.naming;
     requires java.sql;
     requires org.hibernate.orm.core;
+    requires com.fasterxml.jackson.databind;
 
     exports app;
 }
