@@ -18,7 +18,7 @@ public class ForgalomApplication extends Application {
         var scene = new Scene(new Pane());
 
         MenuController.setScene(scene);
-        MenuController.loadView("rest/post");
+        MenuController.loadView("rest/put");
 
         stage.setScene(scene);
         stage.show();

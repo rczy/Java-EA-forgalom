@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.gui.rest.PutController">
+    <children>
+        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <fx:include source="../menu.fxml" />
+                <AnchorPane prefHeight="375.0" prefWidth="672.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="1200.0" spacing="10.0">
+                                    <children>
+                                        <Label text="Id:" />
+                                        <TextField fx:id="idInput" />
+                                        <Label text="Name:" />
+                                        <TextField fx:id="nameInput" />
+                                        <Label text="Email:" />
+                                        <TextField fx:id="emailInput" />
+                                        <ComboBox fx:id="genderCombo" value="female">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="female"/>
+                                                    <String fx:value="male"/>
+                                                </FXCollections>
+                                            </items>
+                                        </ComboBox>
+                                        <ComboBox fx:id="statusCombo" value="active">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="active"/>
+                                                    <String fx:value="inactive"/>
+                                                </FXCollections>
+                                            </items>
+                                        </ComboBox>
+                                        <Button mnemonicParsing="false" onAction="#put" text="PUT" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </padding>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
