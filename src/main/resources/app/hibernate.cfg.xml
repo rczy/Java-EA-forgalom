@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD 5.3//EN"
-        "http://www.hibernate.org/dtd/hibernate-configuration">
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
         <property name="connection.url">jdbc:sqlite:./forgalom.db</property>
@@ -9,5 +9,7 @@
         <mapping class="app.models.Aru"/>
         <mapping class="app.models.Eladas"/>
         <mapping class="app.models.Kategoria"/>
+        <mapping class="app.soap.db.Deviza"/>
+        <mapping class="app.soap.db.Arfolyam"/>
     </session-factory>
 </hibernate-configuration>

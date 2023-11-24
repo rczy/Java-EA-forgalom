@@ -3,6 +3,7 @@ package app.gui.crud;
 import app.ForgalomApplication;
 import app.models.Aru;
 import app.models.Kategoria;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -144,6 +145,6 @@ public class ReadFilterController {
             aruk = criteria.list();
             t.commit();
         }
-        aruTable.setItems(FXCollections.observableList(aruk));
+        Platform.runLater(()-> aruTable.setItems(FXCollections.observableList(aruk)));
     }
 }

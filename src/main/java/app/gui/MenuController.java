@@ -1,11 +1,13 @@
 package app.gui;
 
+import app.ForgalomApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +23,9 @@ public class MenuController {
     private void loadView(ActionEvent event) throws IOException {
         MenuItem menuItem = (MenuItem) event.getSource();
         String view = (String) menuItem.getUserData();
+        ForgalomApplication.getStage().setTitle(
+                menuItem.getParentMenu().getText() + " - " +menuItem.getText()
+        );
         loadView(view);
     }
 

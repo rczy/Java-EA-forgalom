@@ -27,9 +27,9 @@
           </Menu>
           <Menu mnemonicParsing="false" text="SOAP">
             <items>
-              <MenuItem mnemonicParsing="false" text="Letöltés" />
-              <MenuItem mnemonicParsing="false" text="Letöltés 2" />
-              <MenuItem mnemonicParsing="false" text="Grafikon" />
+              <MenuItem mnemonicParsing="false" text="Letöltés" onAction="#loadView" userData="soap/download-all" />
+              <MenuItem mnemonicParsing="false" text="Letöltés 2" onAction="#loadView" userData="soap/download" />
+              <MenuItem mnemonicParsing="false" text="Grafikon" onAction="#loadView" userData="soap/grafikon" />
             </items>
           </Menu>
         </menus>

@@ -1,24 +1,30 @@
 package app;
 
 import app.gui.MenuController;
-import app.rest.UserRestClient;
-import app.rest.User;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import app.soap.DownloadManager;
 
 import java.io.IOException;
 
 public class ForgalomApplication extends Application {
+    private static Stage stage;
+
+    public static Stage getStage() {
+        return stage;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         var scene = new Scene(new Pane());
 
+        ForgalomApplication.stage = stage;
         MenuController.setScene(scene);
-        MenuController.loadView("rest/delete");
+        MenuController.loadView("soap/download");
 
         stage.setScene(scene);
         stage.show();
@@ -30,28 +36,8 @@ public class ForgalomApplication extends Application {
     }
 
     public static void main(String[] args) {
-        try {
-            //restTest();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        //DownloadManager.downloadCurrencies();
+        //DownloadManager.downloadRates("2023-11-05", "2023-11-24", null);
         launch();
-    }
-
-    private static void restTest() throws Exception {
-        UserRestClient client = new UserRestClient();
-
-        User newusr = new User("teszt név", "ad@email.com", "male", "inactive");
-        newusr = client.POST(newusr);
-
-        newusr.setName("EHEJJ AHAJJ");
-        client.PUT(newusr);
-
-        //client.DELETE(newusr);
-
-        for (User user : client.GET()) {
-            System.out.println(user.getName() + " " + user.getEmail());
-        }
-
     }
 }
