@@ -37,11 +37,20 @@ public class DownloadManager {
             throw new Exception(e);
         }
     }
-    public static void downloadCurrencies() {
+    public static void downloadCurrencies(boolean forceDownload) {
         MNBArfolyamServiceSoap service = getSoapService();
         try {
             Session session = ForgalomApplication.getDbSessionFactory().openSession();
             Transaction t = session.beginTransaction();
+
+            List<Deviza> devizak = session.createQuery("FROM Deviza ").list();
+            t.commit();
+            if (!forceDownload && !devizak.isEmpty()) {
+                System.out.println("A devizák már korábban letöltésre kerültek!");
+                session.close();
+                return;
+            }
+
             session.createQuery("delete FROM Deviza ").executeUpdate();
 
             Document doc = parseXml(service.getInfo());
@@ -53,6 +62,7 @@ public class DownloadManager {
 
             t.commit();
             session.close();
+            System.out.println("A devizák listája frissítésre került.");
         } catch (Exception e) {
             System.err.print(e);
         }

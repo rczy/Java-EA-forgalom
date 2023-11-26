@@ -34,9 +34,9 @@
                                     </padding>
                            <children>
                               <Label text="Kezdődátum:" />
-                              <DatePicker />
+                              <DatePicker fx:id="minDatePicker"/>
                               <Label text="Végdátum:" />
-                              <DatePicker />
+                              <DatePicker fx:id="maxDatePicker" />
                               <Button mnemonicParsing="false" onAction="#download" text="Letöltés" />
                            </children>
                                 </HBox>
