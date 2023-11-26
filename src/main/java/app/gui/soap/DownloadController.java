@@ -28,7 +28,7 @@ public class DownloadController {
 
     @FXML
     private void initialize() {
-        DownloadManager.downloadCurrencies(false);
+        DownloadManager.downloadCurrencies();
         currencies = initializeCurrencies();
     }
 

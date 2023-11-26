@@ -16,6 +16,7 @@ import app.soap.db.Deviza;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,15 +38,14 @@ public class DownloadManager {
             throw new Exception(e);
         }
     }
-    public static void downloadCurrencies(boolean forceDownload) {
+    public static void downloadCurrencies() {
         MNBArfolyamServiceSoap service = getSoapService();
         try {
             Session session = ForgalomApplication.getDbSessionFactory().openSession();
             Transaction t = session.beginTransaction();
 
             List<Deviza> devizak = session.createQuery("FROM Deviza ").list();
-            t.commit();
-            if (!forceDownload && !devizak.isEmpty()) {
+            if (!devizak.isEmpty()) {
                 System.out.println("A devizák már korábban letöltésre kerültek!");
                 session.close();
                 return;
@@ -118,7 +118,7 @@ public class DownloadManager {
                     String currency = rateElement.getAttribute("curr");
                     String rate = rateElement.getTextContent();
 
-                    Arfolyam arfolyam = new Arfolyam(date, currency, Double.parseDouble(rate.replace(',', '.')));
+                    Arfolyam arfolyam = new Arfolyam(LocalDate.parse(date), currency, Double.parseDouble(rate.replace(',', '.')));
                     session.save(arfolyam);
                 }
             }

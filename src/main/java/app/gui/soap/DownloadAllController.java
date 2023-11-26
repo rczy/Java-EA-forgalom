@@ -19,7 +19,7 @@ public class DownloadAllController {
         ForgalomApplication.getStage().getScene().getRoot().setCursor(Cursor.WAIT);
         new Thread(() -> {
             try {
-                DownloadManager.downloadCurrencies(false);
+                DownloadManager.downloadCurrencies();
                 DownloadManager.downloadRates(null, null, null);
             } finally {
                 Platform.runLater(() -> {

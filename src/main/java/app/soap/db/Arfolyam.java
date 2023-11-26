@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class Arfolyam implements Serializable {
     @Id
     @Column(name = "datum")
-    public String datum;
+    public LocalDate datum;
     @Id
     @Column(name = "deviza")
     public String deviza;
@@ -22,17 +23,17 @@ public class Arfolyam implements Serializable {
     public Arfolyam() {
     }
 
-    public Arfolyam(String datum, String deviza, Double arfolyam) {
+    public Arfolyam(LocalDate datum, String deviza, Double arfolyam) {
         this.datum = datum;
         this.deviza = deviza;
         this.arfolyam = arfolyam;
     }
 
-    public String getDatum() {
+    public LocalDate getDatum() {
         return datum;
     }
 
-    public void setDatum(String datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 

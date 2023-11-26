@@ -67,15 +67,6 @@ public class UserRestClient {
     }
 
     public List<User> GET() throws Exception {
-        MNBArfolyamServiceSoapImpl impl = new MNBArfolyamServiceSoapImpl();
-        MNBArfolyamServiceSoap service = impl.getCustomBindingMNBArfolyamServiceSoap();
-        try {
-            System.out.println(service.getInfo());
-            System.out.println(service.getCurrentExchangeRates());
-            System.out.println(service.getExchangeRates("2022-08-14","2022-09-14","EUR"));
-        } catch (Exception e) {
-            System.err.print(e);
-        }
         String result = sendRequest(getURL(null), "GET", null, HttpsURLConnection.HTTP_OK);
         return mapper.readerForListOf(User.class).readValue(result);
     }
