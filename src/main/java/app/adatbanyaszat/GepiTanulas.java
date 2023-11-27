@@ -5,10 +5,7 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Random;
 
 public class GepiTanulas {
@@ -18,10 +15,13 @@ public class GepiTanulas {
     double[] eredmeny;
     double ratio;
 
-    public GepiTanulas(String fajl, int classIndex, Classifier algo) throws Exception {
+    public GepiTanulas(String fajl, int classIndex, Classifier algo, boolean randomize) throws Exception {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(fajl));
         instances = new Instances(bufferedReader);
         instances.setClassIndex(classIndex);
+        if (randomize) {
+            instances.randomize(new Random());
+        }
 
         ratio = 0.8;
         int trainSize = (int) Math.round(instances.numInstances() * ratio);
@@ -58,6 +58,10 @@ public class GepiTanulas {
         sb.append(String.format("Correctly Classified Instances:\t\t%d\n", (int)evaluation.correct()));
         sb.append(String.format("Incorrectly Classified Instances:\t%d\n", kiertekelo.size()-(int)evaluation.correct()));
         return sb.toString();
+    }
+
+    public int getNoOfCorrect() {
+        return (int)evaluation.correct();
     }
 
     /**
