@@ -23,7 +23,7 @@ public class GepiTanulas {
             instances.randomize(new Random());
         }
 
-        ratio = 0.8;
+        ratio = 0.9;
         int trainSize = (int) Math.round(instances.numInstances() * ratio);
         int testSize = instances.numInstances() - trainSize;
         tanito = new Instances(instances, 0, trainSize);
@@ -96,7 +96,8 @@ public class GepiTanulas {
         StringBuilder summary = new StringBuilder();
         if (full) {
             summary.append("Tanító halmaz mérete:\t\t").append(getTanitoHalmazMeret());
-            summary.append("\nKiértékelő halmaz mérete:\t\n").append(getKiertekeloHalmazMeret());
+            summary.append("\nKiértékelő halmaz mérete:\t").append(getKiertekeloHalmazMeret());
+            summary.append("\n");
             summary.append(getEvaluationResult());
         }
         summary.append(getCorrectlyIncorrectly());
