@@ -33,9 +33,9 @@
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </padding>
                            <children>
-                              <Label text="Kezdődátum:" />
+                              <Label text="Kezdő dátum:" />
                               <DatePicker fx:id="minDatePicker"/>
-                              <Label text="Végdátum:" />
+                              <Label text="Vég dátum:" />
                               <DatePicker fx:id="maxDatePicker" />
                               <Button mnemonicParsing="false" onAction="#download" text="Letöltés" />
                            </children>

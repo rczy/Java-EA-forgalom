@@ -45,6 +45,15 @@
               <MenuItem mnemonicParsing="false" text="Stream" onAction="#loadView" userData="egyeb/stream" />
             </items>
           </Menu>
+          <Menu mnemonicParsing="false" text="Forex">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Számlainformációk" onAction="#loadView" userData="forex/szamlainformaciok" />
+              <MenuItem mnemonicParsing="false" text="Aktuális árak" onAction="#loadView" userData="forex/aktualis-arak" />
+              <MenuItem mnemonicParsing="false" text="Historikus árak" onAction="#loadView" userData="forex/historikus-arak" />
+              <MenuItem mnemonicParsing="false" text="Pozíció nyitás" onAction="#loadView" userData="forex/pozicio-nyitas" />
+              <MenuItem mnemonicParsing="false" text="Pozíció zárás" onAction="#loadView" userData="forex/pozicio-zaras" />
+            </items>
+          </Menu>
         </menus>
       </MenuBar>
    </children>

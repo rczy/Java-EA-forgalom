@@ -24,9 +24,9 @@
                     </Accordion>
                     <HBox alignment="CENTER_LEFT" spacing="10.0">
 
-                        <Label text="Kezdődátum:"/>
+                        <Label text="Kezdő dátum:"/>
                         <DatePicker fx:id="minDatePicker"/>
-                        <Label text="Végdátum:"/>
+                        <Label text="Vég dátum:"/>
                         <DatePicker fx:id="maxDatePicker"/>
                         <Button mnemonicParsing="false" onAction="#draw"
                                 text="Megjelenítés grafikonon"/>

@@ -14,4 +14,5 @@ open module com.example.forgalom {
     requires java.xml.ws;
     requires java.xml.bind;
     requires weka.stable;
+    requires v20;
 }
