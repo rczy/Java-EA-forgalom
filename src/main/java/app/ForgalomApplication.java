@@ -24,7 +24,7 @@ public class ForgalomApplication extends Application {
 
         ForgalomApplication.stage = stage;
         MenuController.setScene(scene);
-        MenuController.loadView("soap/download");
+        MenuController.loadView("adatbanyaszat/tobb-algoritmus");
 
         stage.setScene(scene);
         stage.show();

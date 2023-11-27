@@ -36,7 +36,7 @@
             <items>
               <MenuItem mnemonicParsing="false" text="Döntési fa" onAction="#loadView" userData="adatbanyaszat/dontesi-fa" />
               <MenuItem mnemonicParsing="false" text="Több algoritmus" onAction="#loadView" userData="adatbanyaszat/tobb-algoritmus" />
-              <MenuItem mnemonicParsing="false" text="Több algoritmus" onAction="#loadView" userData="adatbanyaszat/tobb-algoritmus-2" />
+              <MenuItem mnemonicParsing="false" text="Több algoritmus 2" onAction="#loadView" userData="adatbanyaszat/tobb-algoritmus-2" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Egyéb">
