@@ -32,6 +32,19 @@
               <MenuItem mnemonicParsing="false" text="Grafikon" onAction="#loadView" userData="soap/grafikon" />
             </items>
           </Menu>
+          <Menu mnemonicParsing="false" text="Adatbányászat">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Döntési fa" onAction="#loadView" userData="adatbanyaszat/dontesi-fa" />
+              <MenuItem mnemonicParsing="false" text="Több algoritmus" onAction="#loadView" userData="adatbanyaszat/tobb-algoritmus" />
+              <MenuItem mnemonicParsing="false" text="Több algoritmus" onAction="#loadView" userData="adatbanyaszat/tobb-algoritmus-2" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Egyéb">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Párhuzamos" onAction="#loadView" userData="egyeb/parhuzamos" />
+              <MenuItem mnemonicParsing="false" text="Stream" onAction="#loadView" userData="egyeb/stream" />
+            </items>
+          </Menu>
         </menus>
       </MenuBar>
    </children>
