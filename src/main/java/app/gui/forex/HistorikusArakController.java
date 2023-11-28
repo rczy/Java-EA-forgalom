@@ -1,19 +1,18 @@
 package app.gui.forex;
 
 import app.forex.Config;
-import app.models.Aru;
-import app.soap.db.Arfolyam;
 import com.oanda.v20.Context;
 import com.oanda.v20.ContextBuilder;
-import com.oanda.v20.instrument.*;
+import com.oanda.v20.instrument.Candlestick;
+import com.oanda.v20.instrument.CandlestickGranularity;
+import com.oanda.v20.instrument.InstrumentCandlesRequest;
+import com.oanda.v20.instrument.InstrumentCandlesResponse;
 import com.oanda.v20.primitives.DateTime;
 import com.oanda.v20.primitives.Instrument;
 import com.oanda.v20.primitives.InstrumentName;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +30,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class HistorikusArakController {
     @FXML
@@ -112,14 +113,21 @@ public class HistorikusArakController {
 
     @FXML
     private void lekerdez(ActionEvent event) {
+        LocalDate minDate = minDatePicker.getValue();
+        LocalDate maxDate = maxDatePicker.getValue();
+        if (minDate == null || maxDate == null || minDate.isAfter(maxDate) || maxDate.isAfter(LocalDate.now())) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Válasszon kezdő és záró dátumot!\n\nA kezdő dátum nem előzheti meg a zárót, illetve a záró dátum nem lehet a mainál későbbi.", ButtonType.OK);
+            alert.show();
+            return;
+        }
         try {
             String devizapar = devizaCombo.getSelectionModel().getSelectedItem().getName().toString();
             System.out.println(devizapar);
 
             Context ctx = new ContextBuilder(Config.URL).setToken(Config.TOKEN).setApplication("HistoricalPrices").build();
             InstrumentCandlesRequest request = new InstrumentCandlesRequest(new InstrumentName(devizapar));
-            request.setFrom(minDatePicker.getValue().toString());
-            request.setTo(maxDatePicker.getValue().toString());
+            request.setFrom(minDate.toString());
+            request.setTo(maxDate.toString());
             request.setGranularity(CandlestickGranularity.D);
             InstrumentCandlesResponse response = ctx.instrument.candles(request);
             for (Candlestick candle : response.getCandles()) {
@@ -168,20 +176,17 @@ public class HistorikusArakController {
     }
 
     private StringConverter<Number> getDateConverter() {
-        StringConverter<Number> dateConverter = new StringConverter<>() {
+        return new StringConverter<>() {
             @Override
             public String toString(Number date) {
                 DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
                 return dtf.format(LocalDate.ofEpochDay(date.longValue()));
             }
-
             @Override
             public Number fromString(String s) {
                 return LocalDate.parse(s).toEpochDay();
             }
-
         };
-        return dateConverter;
     }
 
     private long convertToEpochDays(DateTime time) {

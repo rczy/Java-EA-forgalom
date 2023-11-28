@@ -32,7 +32,11 @@
                             <Insets bottom="50.0" left="10.0" right="10.0" top="30.0"/>
                         </padding>
                     </VBox>
-                    <TableView fx:id="tablazat" visible="false"/>
+                    <TableView fx:id="tablazat" visible="false">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </TableView>
                 </VBox>
             </ScrollPane>
         </AnchorPane>

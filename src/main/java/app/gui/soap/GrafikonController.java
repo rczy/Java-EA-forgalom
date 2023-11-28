@@ -76,7 +76,7 @@ public class GrafikonController {
         }
         // "validáció"
         if (minDate == null || maxDate == null || selectedCurrencies.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Válasszon devizá(ka)t, illetve kezdő- és végdátumot!", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Válasszon devizá(ka)t, illetve kezdő és vég dátumot!", ButtonType.OK);
             alert.show();
             return;
         }

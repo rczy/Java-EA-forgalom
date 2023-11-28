@@ -52,6 +52,7 @@
               <MenuItem mnemonicParsing="false" text="Historikus árak" onAction="#loadView" userData="forex/historikus-arak" />
               <MenuItem mnemonicParsing="false" text="Pozíció nyitás" onAction="#loadView" userData="forex/pozicio-nyitas" />
               <MenuItem mnemonicParsing="false" text="Pozíció zárás" onAction="#loadView" userData="forex/pozicio-zaras" />
+              <MenuItem mnemonicParsing="false" text="Nyitott pozíciók" onAction="#loadView" userData="forex/nyitott-poziciok" />
             </items>
           </Menu>
         </menus>
