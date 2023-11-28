@@ -7,7 +7,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import app.soap.DownloadManager;
 
 import java.io.IOException;
 
@@ -22,9 +21,10 @@ public class ForgalomApplication extends Application {
     public void start(Stage stage) throws IOException {
         var scene = new Scene(new Pane());
 
+        stage.setTitle("Java alkalmazások előadás beadandó feladat");
         ForgalomApplication.stage = stage;
         MenuController.setScene(scene);
-        MenuController.loadView("forex/aktualis-arak");
+        MenuController.loadView("startup");
 
         stage.setScene(scene);
         stage.show();
@@ -36,8 +36,6 @@ public class ForgalomApplication extends Application {
     }
 
     public static void main(String[] args) {
-        //DownloadManager.downloadCurrencies();
-        //DownloadManager.downloadRates("2023-11-05", "2023-11-24", null);
         launch();
     }
 }
