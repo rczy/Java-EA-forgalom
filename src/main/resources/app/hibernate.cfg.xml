@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:sqlite:./forgalom.db</property>
+        <property name="connection.url">jdbc:sqlite:./adatok.db</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="app.models.Aru"/>
         <mapping class="app.models.Eladas"/>
